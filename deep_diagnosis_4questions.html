@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: inherit; background: transparent; }
+.page { padding: 0.5rem 0; }
+
+.q-block { margin-bottom: 28px; border-radius: 10px; overflow: hidden; border: 1px solid var(--color-border-primary, #e5e7eb); }
+.q-header { padding: 12px 16px; display: flex; align-items: center; gap: 10px; }
+.q-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.q-title { font-size: 13px; font-weight: 600; }
+.q-body { padding: 14px 16px; }
+
+.findings { display: grid; gap: 10px; margin-bottom: 14px; }
+.finding { background: var(--color-background-secondary, #f5f5f4); border-radius: 7px; padding: 10px 12px; border-left: 3px solid; }
+.finding-title { font-size: 11px; font-weight: 700; margin-bottom: 3px; }
+.finding-body { font-size: 11px; color: var(--color-text-secondary, #555); line-height: 1.6; }
+.finding-body b { color: var(--color-text-primary, #222); }
+
+.charts-row { display: grid; gap: 14px; margin-top: 12px; }
+.chart-box { }
+.chart-lbl { font-size: 11px; font-weight: 500; color: var(--color-text-secondary, #555); margin-bottom: 4px; }
+.chart-sub { font-size: 10px; color: var(--color-text-tertiary, #888); margin-bottom: 6px; }
+
+.verdict-bar { border-radius: 7px; padding: 10px 14px; margin-top: 12px; }
+.verdict-bar p { font-size: 11px; line-height: 1.7; }
+.verdict-bar b { font-weight: 700; }
+
+.stat-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin: 10px 0; }
+.stat { text-align: center; background: var(--color-background-secondary,#f5f5f4); border-radius: 6px; padding: 8px; }
+.stat-v { font-size: 18px; font-weight: 600; }
+.stat-l { font-size: 10px; color: var(--color-text-tertiary,#888); margin-top: 2px; line-height: 1.3; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- Q1 -->
+<div class="q-block">
+  <div class="q-header" style="background:rgba(226,75,74,0.07);">
+    <div class="q-num" style="background:#E24B4A;color:#fff;">1</div>
+    <span class="q-title">Tại sao khách hàng đăng ký nhưng không mua?</span>
+  </div>
+  <div class="q-body">
+    <div class="stat-row">
+      <div class="stat"><div class="stat-v" style="color:#E24B4A;">63.7%</div><div class="stat-l">đã mua TRƯỚC khi đăng ký<br>(guest checkout)</div></div>
+      <div class="stat"><div class="stat-v" style="color:#EF9F27;">7.9%</div><div class="stat-l">đăng ký rồi sau đó mua<br>(prospect thực)</div></div>
+      <div class="stat"><div class="stat-v" style="color:#E24B4A;">28.4%</div><div class="stat-l">chưa từng mua hàng<br>sau đăng ký</div></div>
+      <div class="stat"><div class="stat-v" style="color:#E24B4A;">65.1%</div><div class="stat-l">prospect đăng ký rồi mua<br>nhưng chờ > 1 năm</div></div>
+    </div>
+    <div class="findings">
+      <div class="finding" style="border-color:#E24B4A;">
+        <div class="finding-title" style="color:#E24B4A;">🔍 Phát hiện 1 — Vấn đề KHÔNG phải "signup không mua" mà là "guest checkout là chủ yếu"</div>
+        <div class="finding-body"><b>63.7% khách hàng đã mua trước khi tạo tài khoản</b> — tức là signup_date đến sau order_date. Họ là người mua thực, đăng ký để xem lịch sử đơn hoặc được khuyến khích đăng ký sau khi checkout. Đây là hành vi guest-first lành mạnh, không phải vấn đề acquisition.</div>
+      </div>
+      <div class="finding" style="border-color:#EF9F27;">
+        <div class="finding-title" style="color:#EF9F27;">🔍 Phát hiện 2 — Prospect thực (7.9%) chờ rất lâu, phần lớn không bao giờ mua</div>
+        <div class="finding-body">Trong 9,595 khách đăng ký trước khi mua: <b>median thời gian chờ là 579 ngày (~19 tháng)</b>. Chỉ 3.6% mua trong 30 ngày đầu. <b>65.1% mãi không mua trong vòng 1 năm</b> — họ đăng ký vì tò mò, xem giá, rồi rời đi. Không có email nurturing hay retargeting nào kéo họ trở lại.</div>
+      </div>
+      <div class="finding" style="border-color:#EF9F27;">
+        <div class="finding-title" style="color:#EF9F27;">🔍 Phát hiện 3 — Tất cả acquisition channels đều có conversion rate như nhau (~71–72%)</div>
+        <div class="finding-body">Purchase rate theo channel chênh lệch chỉ 1.1% (social_media 71.1% vs direct 72.2%). Không có kênh nào đặc biệt tốt hay xấu. Vấn đề không nằm ở việc chọn kênh — <b>vấn đề nằm ở việc sau khi user đến website, không có gì đủ hấp dẫn để khiến họ mua</b>.</div>
+      </div>
+      <div class="finding" style="border-color:#378ADD;">
+        <div class="finding-title" style="color:#378ADD;">🔍 Phát hiện 4 — Địa lý: Central coast cities thấp hơn 10% so với Bắc/Nam</div>
+        <div class="finding-body">Da Nang (65.2%), Tuy Hoa (65.7%), Dong Hoi (65.7%) có purchase rate thấp nhất — thấp hơn 11% so với Buon Ma Thuot (77.9%) hay Son Tay (77.3%). Đây có thể phản ánh <b>mức độ quen thuộc với e-commerce thấp hơn hoặc mức thu nhập khả dụng thấp hơn</b> tại các tỉnh miền Trung.</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+      <div class="chart-box">
+        <p class="chart-lbl">Phân bổ thời gian chờ mua hàng đầu tiên (9,595 prospects)</p>
+        <p class="chart-sub">65% chờ hơn 1 năm — cửa sổ nurturing bị bỏ trống hoàn toàn</p>
+        <div style="height:180px;position:relative;"><canvas id="cQ1a"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <p class="chart-lbl">Phân loại lại 121,930 signups</p>
+        <p class="chart-sub">Câu chuyện thực: vấn đề là prospect conversion, không phải overall acquisition</p>
+        <div style="height:180px;position:relative;"><canvas id="cQ1b"></canvas></div>
+      </div>
+    </div>
+    <div class="verdict-bar" style="background:rgba(226,75,74,0.07);border:1px solid rgba(226,75,74,0.2);margin-top:12px;">
+      <p><b>Verdict:</b> "Signup không mua" là vấn đề thực nhưng nhỏ hơn tưởng (chỉ 7.9% của signups là prospect chưa mua). Vấn đề lớn hơn là <b>conversion rate web giảm liên tục từ 2013</b> — người đến website ngày càng ít mua, dù không đăng ký. Không có email nurturing nào cho 34,650 người đăng ký mà chưa mua = cơ hội lớn đang bị bỏ qua.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Q2 -->
+<div class="q-block">
+  <div class="q-header" style="background:rgba(55,138,221,0.07);">
+    <div class="q-num" style="background:#378ADD;color:#fff;">2</div>
+    <span class="q-title">Tại sao Streetwear giảm?</span>
+  </div>
+  <div class="q-body">
+    <div class="stat-row">
+      <div class="stat"><div class="stat-v" style="color:#E24B4A;">+25%</div><div class="stat-l">giá unit tăng<br>2018→2022</div></div>
+      <div class="stat"><div class="stat-v" style="color:#E24B4A;">−49%</div><div class="stat-l">số lượng bán<br>2018→2022</div></div>
+      <div class="stat"><div class="stat-v" style="color:#E24B4A;">−9.4x</div><div class="stat-l">elasticity 2019<br>(cực kỳ nhạy cảm với giá)</div></div>
+      <div class="stat"><div class="stat-v" style="color:#EF9F27;">281→40</div><div class="stat-l">SKUs mới/năm<br>2012 → 2022</div></div>
+    </div>
+    <div class="findings">
+      <div class="finding" style="border-color:#E24B4A;">
+        <div class="finding-title" style="color:#E24B4A;">🔍 Phát hiện 1 — Price shock 2019: giá tăng nhưng thị trường không chịu</div>
+        <div class="finding-body">Streetwear avg unit price tăng từ 7,327 (2018) lên 7,655 (2019) — chỉ +4.5%. Nhưng quantity sold giảm <b>−42%</b> cùng năm. Price elasticity = <b>−9.4 lần</b> — có nghĩa tăng giá 1% dẫn đến giảm 9.4% lượng bán. Thị trường Streetwear đã quá bão hòa và cạnh tranh khiến khách hàng cực kỳ nhạy cảm với giá. Khi giá không còn cạnh tranh, họ chuyển sang đối thủ ngay.</div>
+      </div>
+      <div class="finding" style="border-color:#EF9F27;">
+        <div class="finding-title" style="color:#EF9F27;">🔍 Phát hiện 2 — Portfolio già cỗi: số SKU mới giảm 7 lần trong 10 năm</div>
+        <div class="finding-body">Năm 2012 doanh nghiệp ra mắt <b>281 SKU Streetwear mới</b>. Từ 2014–2022 con số này chỉ dao động 40–68 SKU/năm — giảm 7x. Khách hàng Streetwear (đặc biệt GenZ, 18–34 tuổi) cần sự mới mẻ và trend. <b>Lineup không đổi mới đủ nhanh = khách không có lý do quay lại</b>. Đây là nguyên nhân cốt lõi của repeat rate giảm.</div>
+      </div>
+      <div class="finding" style="border-color:#EF9F27;">
+        <div class="finding-title" style="color:#EF9F27;">🔍 Phát hiện 3 — Segment mix shift: Everyday bị xói mòn, Balanced tăng nhưng giá cao hơn</div>
+        <div class="finding-body">Streetwear Everyday (segment mass market, giá thấp) giảm từ 49% (2012) xuống <b>26% (2022)</b>. Balanced tăng từ 35% lên 58%. Điều này có nghĩa mix đang drift về phân khúc giá cao hơn — nhưng volume không theo kịp vì khách mass market rời đi. <b>Doanh nghiệp đang mất thị trường đại trà mà chưa thực sự chiếm được phân khúc premium.</b></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;">
+      <div class="chart-box">
+        <p class="chart-lbl">Streetwear: giá tăng, lượng bán giảm</p>
+        <p class="chart-sub">2019 là điểm gãy — giá vượt ngưỡng chịu đựng của thị trường</p>
+        <div style="height:180px;position:relative;"><canvas id="cQ2a"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <p class="chart-lbl">Streetwear segment mix shift 2012→2022</p>
+        <p class="chart-sub">Everyday (mass market) thu hẹp — Balanced (mid-premium) mở rộng nhưng volume không bù được</p>
+        <div style="height:180px;position:relative;"><canvas id="cQ2b"></canvas></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Q3 -->
+<div class="q-block">
+  <div class="q-header" style="background:rgba(29,158,117,0.07);">
+    <div class="q-num" style="background:#1D9E75;color:#fff;">3</div>
+    <span class="q-title">Tại sao Outdoor không tăng lên bù đắp?</span>
+  </div>
+  <div class="q-body">
+    <div class="stat-row">
+      <div class="stat"><div class="stat-v" style="color:#E24B4A;">85%</div><div class="stat-l">tháng bị overstock<br>trung bình 2018–2022</div></div>
+      <div class="stat"><div class="stat-v" style="color:#E24B4A;">1,998</div><div class="stat-l">days of supply 2022<br>(5.5 năm tồn kho!)</div></div>
+      <div class="stat"><div class="stat-v" style="color:#EF9F27;">9.6%</div><div class="stat-l">sell-through rate 2022<br>(chỉ bán 1/10 hàng có)</div></div>
+      <div class="stat"><div class="stat-v" style="color:#EF9F27;">+30%</div><div class="stat-l">giá unit tăng<br>2014→2022</div></div>
+    </div>
+    <div class="findings">
+      <div class="finding" style="border-color:#E24B4A;">
+        <div class="finding-title" style="color:#E24B4A;">🔍 Phát hiện 1 — Outdoor đang chết chìm trong tồn kho quá mức từ 2013</div>
+        <div class="finding-body">Outdoor overstock rate tăng từ 46% (2012) lên <b>85% (2018–2022)</b>. Days of supply tăng từ 118 ngày (2012) lên 1,998 ngày (2022) — <b>5.5 năm tồn kho!</b> Sell-through rate giảm từ 26.7% xuống 9.6%. Tình trạng quá tải tồn kho xảy ra ngay từ 2013–2014 và không được giải quyết. Vốn bị chôn trong Outdoor không được tái đầu tư vào danh mục hiệu quả hơn.</div>
+      </div>
+      <div class="finding" style="border-color:#EF9F27;">
+        <div class="finding-title" style="color:#EF9F27;">🔍 Phát hiện 2 — Outdoor bị định giá ngày càng cao trong khi demand giảm</div>
+        <div class="finding-body">Outdoor avg unit price tăng từ 1,866 (2012) lên <b>2,699 (2022) — tăng 45%</b> trong khi quantity bán giảm 56%. Không có dấu hiệu đây là price premium có chủ ý — nhiều khả năng là mix shift về SKU đắt hơn khi SKU rẻ hết hàng. Không có promo hay giải phóng tồn kho Outdoor hiệu quả nào được thực hiện.</div>
+      </div>
+      <div class="finding" style="border-color:#EF9F27;">
+        <div class="finding-title" style="color:#EF9F27;">🔍 Phát hiện 3 — Outdoor chỉ có 2 segment (Activewear + Premium) — quá hẹp</div>
+        <div class="finding-body">Toàn bộ Outdoor revenue đến từ Activewear (68–84%) và Premium (16–31%). Không có mid-range segment. <b>Khi khách Activewear rời đi (vì giá tăng), không có tier giá thấp hơn để giữ họ lại</b>. Premium tăng từ 16% (2012) lên 31% (2022) nhưng đây là do Activewear co lại, không phải Premium thực sự tăng trưởng. SKU mới ra mắt giảm từ 201 (2012) xuống 17 (2018).</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;">
+      <div class="chart-box">
+        <p class="chart-lbl">Outdoor: Sell-through rate sụt liên tục từ 2012</p>
+        <p class="chart-sub">Tồn kho ngày càng chồng chất — 85% tháng bị overstock năm 2020</p>
+        <div style="height:180px;position:relative;"><canvas id="cQ3a"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <p class="chart-lbl">Outdoor vs Streetwear: cả hai đều giảm sau 2016–2018</p>
+        <p class="chart-sub">Không có danh mục nào có thể kéo tổng revenue lên — đây là collapse đồng loạt</p>
+        <div style="height:180px;position:relative;"><canvas id="cQ3b"></canvas></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Q4 -->
+<div class="q-block">
+  <div class="q-header" style="background:rgba(127,119,221,0.07);">
+    <div class="q-num" style="background:#7F77DD;color:#fff;">4</div>
+    <span class="q-title">Còn nguyên nhân nào khác? Và chúng ta có nên chỉ nhìn vào doanh thu?</span>
+  </div>
+  <div class="q-body">
+    <div class="findings">
+      <div class="finding" style="border-color:#7F77DD;">
+        <div class="finding-title" style="color:#7F77DD;">🔍 Nguyên nhân ẩn 1 — COGS tăng nhanh hơn Revenue năm 2021: margin chỉ còn 7.9%</div>
+        <div class="finding-body">Năm 2021 là năm tệ nhất về biên lợi nhuận: COGS chiếm 90.2% revenue. So với 2018 (COGS 83.4%), khoảng cách giảm 6.8 điểm %. <b>Doanh nghiệp đang bán ngày càng nhiều để bù chi phí nhưng margin ngày càng mỏng</b>. Revenue đi ngang, GP thực tế giảm mạnh hơn.</div>
+      </div>
+      <div class="finding" style="border-color:#7F77DD;">
+        <div class="finding-title" style="color:#7F77DD;">🔍 Nguyên nhân ẩn 2 — Promo dependency cao (33–46% đơn có promo) nhưng abs discount tăng</div>
+        <div class="finding-body">Tỷ lệ đơn có promo dao động 33–46% xuyên suốt, không có xu hướng giảm. Avg discount amount tăng từ 998 VND (2013) lên <b>1,429 VND/line (2022) — tăng 43%</b>. Doanh nghiệp phụ thuộc promo để kéo đơn nhưng mức discount ngày càng sâu hơn, ăn vào margin. Đây là vòng lặp nguy hiểm: giảm giá → thu hút deal-hunters → không loyal → cần giảm giá tiếp.</div>
+      </div>
+      <div class="finding" style="border-color:#EF9F27;">
+        <div class="finding-title" style="color:#EF9F27;">🔍 Nguyên nhân ẩn 3 — Revenue concentration: top 20% khách = 60% revenue</div>
+        <div class="finding-body">Top 10% khách hàng đóng góp <b>39.5% tổng revenue</b>. Top 20% đóng góp 60%. Bottom 50% chỉ đóng góp 10.7%. Khi tệp khách trung thành này churn (đã thấy dấu hiệu từ 2019), doanh thu sụp rất nhanh và khó phục hồi. <b>Revenue base quá tập trung vào nhóm nhỏ = fragile business model.</b></div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;">
+      <div class="chart-box">
+        <p class="chart-lbl">GP margin vs COGS % of Revenue theo năm</p>
+        <p class="chart-sub">2021: năm tệ nhất — COGS chiếm 90.2% revenue, GP margin chỉ 7.9%</p>
+        <div style="height:180px;position:relative;"><canvas id="cQ4a"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <p class="chart-lbl">Chỉ số nào QUAN TRỌNG hơn Revenue?</p>
+        <p class="chart-sub">Revenue ổn định nhưng GP thực tế giảm mạnh — đây mới là vấn đề nghiêm trọng</p>
+        <div style="height:180px;position:relative;"><canvas id="cQ4b"></canvas></div>
+      </div>
+    </div>
+
+    <div class="verdict-bar" style="background:rgba(127,119,221,0.07);border:1px solid rgba(127,119,221,0.2);margin-top:12px;">
+      <p><b>Không chỉ nhìn vào Revenue — đây là 5 chỉ số cần theo dõi song song:</b><br><br>
+      <b>1. Gross Profit (GP) thay vì Revenue:</b> Revenue 2022 cao hơn 2021 nhưng GP margin 2021 chỉ 7.9% so với 2018 là 15.7% — doanh nghiệp bán nhiều hơn để kiếm ít hơn.<br>
+      <b>2. Repeat Purchase Rate:</b> Giảm từ 44% (2014) xuống 27% (2022) — đây là early warning indicator của churn 6–12 tháng sau.<br>
+      <b>3. Customer Acquisition Rate (first-purchase):</b> Từ 24,170 (2013) xuống 1,316 (2022) — đường ống khách mới cạn kiệt.<br>
+      <b>4. Sell-through Rate:</b> Outdoor 9.6%, Streetwear 14.8% — vốn đang bị giam trong tồn kho không bán được.<br>
+      <b>5. Revenue per Loyal Customer (top 20%):</b> Khi nhóm này churn, không có gì thay thế — cần monitor thường xuyên.</p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const years = [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022];
+
+// Q1a: Days to first purchase distribution
+new Chart(document.getElementById('cQ1a'), {
+  type:'bar',
+  data:{
+    labels:['0–7 ngày','8–30 ngày','31–90 ngày','91–180 ngày','181–365 ngày','> 365 ngày'],
+    datasets:[{
+      data:[96, 250, 575, 1055, 1275, 6344],
+      backgroundColor:['#1D9E75','#5DCAA5','#9FE1CB','#EF9F27','#E24B4A','#A32D2D'],
+      borderRadius:3
+    }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{x:{ticks:{font:{size:9},maxRotation:30}},y:{ticks:{callback:v=>(v/1000).toFixed(1)+'K',font:{size:9}}}}}
+});
+
+// Q1b: Signup classification donut
+new Chart(document.getElementById('cQ1b'), {
+  type:'doughnut',
+  data:{
+    labels:['Guest checkout (mua trước) 63.7%','Chưa mua (prospect) 28.4%','Signup rồi mua (7.9%)'],
+    datasets:[{
+      data:[77685,34650,9595],
+      backgroundColor:['#1D9E75','#E24B4A','#EF9F27'],
+      borderWidth:0
+    }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{font:{size:9},boxWidth:10}}}}
+});
+
+// Q2a: Streetwear price vs quantity
+new Chart(document.getElementById('cQ2a'), {
+  data:{
+    labels:years,
+    datasets:[
+      {type:'bar',label:'Qty bán (nghìn)',data:[61.9,165.1,178.0,190.7,204.0,192.7,181.5,105.2,89.8,89.0,91.4],
+        backgroundColor:years.map(y=>y>=2019?'rgba(226,75,74,0.6)':'rgba(55,138,221,0.4)'),yAxisID:'y',order:2},
+      {type:'line',label:'Avg unit price (nghìn VND)',data:[7.85,6.77,7.18,6.79,7.31,6.96,7.33,7.65,8.53,8.35,9.19],
+        borderColor:'#EF9F27',backgroundColor:'transparent',tension:0.3,yAxisID:'y2',order:1,pointRadius:3,borderWidth:2}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{font:{size:9},boxWidth:8}}},
+    scales:{
+      x:{ticks:{font:{size:9}}},
+      y:{ticks:{callback:v=>v+'K',font:{size:9}}},
+      y2:{position:'right',ticks:{callback:v=>v+'K VND',font:{size:9}},grid:{display:false}}
+    }}
+});
+
+// Q2b: Streetwear segment mix
+new Chart(document.getElementById('cQ2b'), {
+  type:'bar',
+  data:{
+    labels:years,
+    datasets:[
+      {label:'Everyday',data:[49.0,49.3,48.7,45.1,44.8,40.6,40.8,35.4,31.9,29.5,25.9],
+        backgroundColor:'#378ADD',stack:'s'},
+      {label:'Balanced',data:[34.7,31.3,30.7,32.8,33.3,36.7,36.5,45.2,51.6,55.4,58.2],
+        backgroundColor:'#1D9E75',stack:'s'},
+      {label:'Performance',data:[14.2,17.3,18.8,20.3,20.4,21.0,21.1,17.6,14.6,12.8,13.8],
+        backgroundColor:'#EF9F27',stack:'s'},
+      {label:'Standard',data:[2.1,2.1,1.7,1.8,1.4,1.6,1.7,1.9,1.9,2.3,2.0],
+        backgroundColor:'#888780',stack:'s'}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{font:{size:9},boxWidth:8}}},
+    scales:{x:{stacked:true,ticks:{font:{size:9}}},y:{stacked:true,ticks:{callback:v=>v+'%',font:{size:9}},max:100}}}
+});
+
+// Q3a: Outdoor sell-through + overstock
+new Chart(document.getElementById('cQ3a'), {
+  data:{
+    labels:years,
+    datasets:[
+      {type:'bar',label:'Sell-through rate (%)',data:[26.7,20.8,16.3,14.5,13.5,12.6,10.2,9.6,8.8,9.6,10.0],
+        backgroundColor:years.map((y,i)=>[26.7,20.8,16.3,14.5,13.5,12.6,10.2,9.6,8.8,9.6,10.0][i]>15?'rgba(29,158,117,0.6)':'rgba(226,75,74,0.5)'),
+        yAxisID:'y',order:2},
+      {type:'line',label:'Overstock rate (%)',data:[46.4,67.1,79.8,82.5,82.0,83.4,85.3,84.0,86.7,83.4,82.6],
+        borderColor:'#EF9F27',backgroundColor:'transparent',tension:0.3,yAxisID:'y2',order:1,pointRadius:3,borderWidth:2}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{font:{size:9},boxWidth:8}}},
+    scales:{
+      x:{ticks:{font:{size:9}}},
+      y:{ticks:{callback:v=>v+'%',font:{size:9}},max:40},
+      y2:{position:'right',ticks:{callback:v=>v+'%',font:{size:9}},grid:{display:false},max:100}
+    }}
+});
+
+// Q3b: Outdoor vs Streetwear revenue
+new Chart(document.getElementById('cQ3b'), {
+  type:'line',
+  data:{
+    labels:years,
+    datasets:[
+      {label:'Outdoor (tỷ)',data:[142,268,294,276,269,245,171,122,100,84,86],
+        borderColor:'#1D9E75',backgroundColor:'rgba(29,158,117,0.1)',fill:true,tension:0.3,pointRadius:3,borderWidth:2},
+      {label:'Streetwear (tỷ)',data:[487,1063,1224,1232,1431,1276,1272,766,731,708,802],
+        borderColor:'#378ADD',backgroundColor:'rgba(55,138,221,0.07)',fill:true,tension:0.3,pointRadius:3,borderWidth:2}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{font:{size:9},boxWidth:8}}},
+    scales:{x:{ticks:{font:{size:9}}},y:{ticks:{callback:v=>v+'T',font:{size:9}}}}}
+});
+
+// Q4a: Margin trend
+new Chart(document.getElementById('cQ4a'), {
+  data:{
+    labels:years,
+    datasets:[
+      {type:'bar',label:'GP margin (%)',data:[20.7,10.4,15.4,10.1,14.6,9.7,15.7,10.2,15.3,7.9,12.1],
+        backgroundColor:years.map((y,i)=>[20.7,10.4,15.4,10.1,14.6,9.7,15.7,10.2,15.3,7.9,12.1][i]>12?'rgba(29,158,117,0.7)':'rgba(226,75,74,0.6)'),
+        yAxisID:'y',order:2},
+      {type:'line',label:'COGS % revenue',data:[79.3,88.5,84.6,88.1,84.6,88.7,83.4,88.4,84.0,90.2,87.2],
+        borderColor:'#E24B4A',backgroundColor:'transparent',tension:0.3,yAxisID:'y2',order:1,pointRadius:3,borderWidth:2}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{font:{size:9},boxWidth:8}}},
+    scales:{
+      x:{ticks:{font:{size:9}}},
+      y:{ticks:{callback:v=>v+'%',font:{size:9}},max:25,title:{display:true,text:'GP margin',font:{size:9}}},
+      y2:{position:'right',ticks:{callback:v=>v+'%',font:{size:9}},grid:{display:false},min:75,max:95}
+    }}
+});
+
+// Q4b: Revenue vs GP absolute
+new Chart(document.getElementById('cQ4b'), {
+  type:'line',
+  data:{
+    labels:years,
+    datasets:[
+      {label:'Revenue (tỷ)',data:[0.741,1.657,1.872,1.890,2.105,1.911,1.850,1.137,1.055,1.043,1.170],
+        borderColor:'#378ADD',backgroundColor:'rgba(55,138,221,0.1)',fill:true,tension:0.3,pointRadius:3,borderWidth:2},
+      {label:'Gross Profit (tỷ)',data:[0.154,0.191,0.297,0.224,0.324,0.217,0.308,0.132,0.168,0.102,0.149],
+        borderColor:'#E24B4A',backgroundColor:'rgba(226,75,74,0.1)',fill:true,tension:0.3,pointRadius:3,borderWidth:2}
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{font:{size:9},boxWidth:8}}},
+    scales:{x:{ticks:{font:{size:9}}},y:{ticks:{callback:v=>v.toFixed(1)+'T',font:{size:9}}}}}
+});
+</script>
+</body>
+</html>

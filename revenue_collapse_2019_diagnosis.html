@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: inherit; background: transparent; }
+.page { padding: 0.5rem 0; }
+.section { margin-bottom: 24px; }
+.sec-title { font-size: 13px; font-weight: 600; color: var(--color-text-secondary, #666); border-bottom: 1px solid var(--color-border-primary, #e5e7eb); padding-bottom: 5px; margin-bottom: 12px; }
+.chart-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.chart-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.chart-wrap { }
+.chart-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary, #555); margin-bottom: 5px; }
+.chart-sub { font-size: 10px; color: var(--color-text-tertiary, #888); margin-bottom: 6px; line-height: 1.4; }
+canvas { display: block; }
+
+.cause-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 20px; }
+.cc { border-radius: 8px; padding: 11px 13px; border-top: 3px solid; }
+.cc-num { font-size: 22px; font-weight: 700; margin-bottom: 2px; }
+.cc-title { font-size: 11px; font-weight: 600; margin-bottom: 4px; }
+.cc-desc { font-size: 10px; color: var(--color-text-tertiary, #888); line-height: 1.5; }
+
+.verdict { background: rgba(226,75,74,0.07); border: 1px solid rgba(226,75,74,0.2); border-radius: 8px; padding: 12px 14px; margin-top: 10px; }
+.verdict-title { font-size: 12px; font-weight: 700; color: #c0392b; margin-bottom: 6px; }
+.verdict-text { font-size: 11px; color: var(--color-text-secondary, #555); line-height: 1.7; }
+
+.annot-line { position: absolute; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- CAUSE CARDS -->
+<div class="cause-cards">
+  <div class="cc" style="border-color:#E24B4A;background:rgba(226,75,74,0.05);">
+    <div class="cc-num" style="color:#E24B4A;">−38%</div>
+    <div class="cc-title">Lượng đơn hàng 2018→2019</div>
+    <div class="cc-desc">Từ 60,966 → 36,431 đơn. 59% khách hàng active 2018 không quay lại 2019. Mất 20,758 khách trong 1 năm.</div>
+  </div>
+  <div class="cc" style="border-color:#E24B4A;background:rgba(226,75,74,0.05);">
+    <div class="cc-num" style="color:#E24B4A;">−40%</div>
+    <div class="cc-title">Tỷ lệ mua lại (repeat rate)</div>
+    <div class="cc-desc">Từ 40.5% (2018) → 30.7% (2019) → 26.5% (2020–21). Khách hàng cũ không còn mua thường xuyên như trước.</div>
+  </div>
+  <div class="cc" style="border-color:#EF9F27;background:rgba(239,159,39,0.05);">
+    <div class="cc-num" style="color:#EF9F27;">−50%</div>
+    <div class="cc-title">Khách hàng mới có giao dịch đầu tiên</div>
+    <div class="cc-desc">Từ 3,745 (2018) → 1,898 (2019) → 1,316 (2022). Signup tăng đều nhưng không convert sang mua hàng.</div>
+  </div>
+  <div class="cc" style="border-color:#EF9F27;background:rgba(239,159,39,0.05);">
+    <div class="cc-num" style="color:#EF9F27;">−40%</div>
+    <div class="cc-title">Web conversion rate</div>
+    <div class="cc-desc">Từ 0.63% (2018) → 0.37% (2019) → 0.27% (2021). Traffic tăng đều nhưng tỷ lệ chuyển đổi giảm liên tục từ 2013.</div>
+  </div>
+  <div class="cc" style="border-color:#EF9F27;background:rgba(239,159,39,0.05);">
+    <div class="cc-num" style="color:#EF9F27;">−37%</div>
+    <div class="cc-title">Doanh thu Outdoor 2017→2022</div>
+    <div class="cc-desc">Outdoor từ 268 tỷ (2013) xuống 86 tỷ (2022). Danh mục này từng chiếm 52% revenue (2012) giờ chỉ còn 7%.</div>
+  </div>
+  <div class="cc" style="border-color:#378ADD;background:rgba(55,138,221,0.05);">
+    <div class="cc-num" style="color:#378ADD;">+11x</div>
+    <div class="cc-title">Days of supply Streetwear</div>
+    <div class="cc-desc">Từ 184 ngày (2012) → 1,730 ngày (2022). Vốn bị chôn ngày càng nhiều vào hàng tồn, không phục vụ được demand thực.</div>
+  </div>
+</div>
+
+<!-- CHART ROW 1 -->
+<div class="section">
+  <p class="sec-title">📉 Nguyên nhân 1 — Lượng đơn sụt mạnh, giá trị đơn tăng không bù được</p>
+  <div class="chart-grid-2">
+    <div class="chart-wrap">
+      <p class="chart-label">Số đơn hàng vs Avg order value theo năm</p>
+      <p class="chart-sub">Số đơn giảm 50% từ 2016–2021, avg order value tăng 27% — không đủ bù đắp volume loss</p>
+      <div style="position:relative;height:200px;"><canvas id="c1"></canvas></div>
+    </div>
+    <div class="chart-wrap">
+      <p class="chart-label">Khách hàng active 2018 → tình trạng 2019</p>
+      <p class="chart-sub">59% trong 35,181 khách hàng active 2018 đã không quay lại mua hàng trong 2019</p>
+      <div style="position:relative;height:200px;"><canvas id="c2"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHART ROW 2 -->
+<div class="section">
+  <p class="sec-title">📉 Nguyên nhân 2 — Traffic tăng nhưng conversion sụp đổ dần từ 2013</p>
+  <div class="chart-grid-2">
+    <div class="chart-wrap">
+      <p class="chart-label">Web sessions vs Conversion rate (2013–2022)</p>
+      <p class="chart-sub">Sessions tăng 63% nhưng conversion rate giảm từ 1.02% (2013) xuống 0.28% (2022) — càng nhiều traffic càng ít bán được</p>
+      <div style="position:relative;height:200px;"><canvas id="c3"></canvas></div>
+    </div>
+    <div class="chart-wrap">
+      <p class="chart-label">Signup mới vs Khách thực sự mua hàng lần đầu</p>
+      <p class="chart-sub">Signup tăng đều 2,000/năm nhưng first-purchase giảm từ 24,170 (2013) xuống 1,316 (2022) — khoảng cách ngày càng xa</p>
+      <div style="position:relative;height:200px;"><canvas id="c4"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHART ROW 3 -->
+<div class="section">
+  <p class="sec-title">📉 Nguyên nhân 3 — Mất danh mục Outdoor, phụ thuộc quá cao vào Streetwear</p>
+  <div class="chart-grid-2">
+    <div class="chart-wrap">
+      <p class="chart-label">Doanh thu Outdoor vs Streetwear (tỷ VND)</p>
+      <p class="chart-sub">Outdoor sụp từ 294 tỷ (đỉnh 2014) xuống 86 tỷ (2022). Streetwear cũng giảm từ 2019 — không còn trụ cột nào bù đắp</p>
+      <div style="position:relative;height:190px;"><canvas id="c5"></canvas></div>
+    </div>
+    <div class="chart-wrap">
+      <p class="chart-label">Repeat rate & Sell-through rate Streetwear</p>
+      <p class="chart-sub">Repeat purchase giảm cùng lúc sell-through rate giảm — ít khách mua lại, hàng tồn kho ngày càng nhiều</p>
+      <div style="position:relative;height:190px;"><canvas id="c6"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- VERDICT -->
+<div class="verdict">
+  <div class="verdict-title">🔍 Chẩn đoán tổng hợp — 3 vòng xoáy tiêu cực cộng hưởng</div>
+  <div class="verdict-text">
+    <b>Vòng xoáy 1 — Acquisition collapse:</b> Signups tăng đều mỗi năm nhưng tỷ lệ convert từ signup → first purchase giảm từ 8x (2013) xuống 0.06x (2022). Doanh nghiệp thu hút được người quan tâm nhưng không thuyết phục được họ mua. Đây là vấn đề của product-market fit, UX, hoặc giá cả so với cạnh tranh thị trường.<br><br>
+    <b>Vòng xoáy 2 — Retention collapse:</b> Repeat rate giảm từ 44% (2014–2015) xuống 27% (2021). 59% khách 2018 không quay lại 2019. Các chỉ số chất lượng dịch vụ (delivery time ~4.5 ngày, rating ~3.93) ổn định — vấn đề không phải service mà là <em>product relevance</em>: khách mua một lần rồi không thấy lý do quay lại.<br><br>
+    <b>Vòng xoáy 3 — Portfolio collapse:</b> Outdoor từng đóng góp 52% revenue (2012) nay chỉ còn 7%. Doanh nghiệp chưa tìm được danh mục thay thế — Casual và GenZ tăng nhưng quá nhỏ. Phụ thuộc 80%+ vào Streetwear trong khi sell-through giảm liên tục từ 22% (2012) xuống 14.8% (2018) → 11.9% (2019) — thị trường Streetwear bão hòa nhưng không có chiến lược thoát.<br><br>
+    <b>Tại sao không phục hồi?</b> Vì cả 3 vòng xoáy xảy ra đồng thời và không được can thiệp. Không có làn sóng khách mới (acquisition suy), khách cũ không giữ được (retention suy), danh mục sản phẩm không đổi mới (portfolio suy). Doanh nghiệp đang sống nhờ tệp khách trung thành còn lại — khi họ churn tiếp, không có gì thay thế.
+  </div>
+</div>
+
+</div>
+
+<script>
+const years = [2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022];
+
+// C1: Orders + AOV
+new Chart(document.getElementById('c1'), {
+  data: {
+    labels: years,
+    datasets: [
+      { type:'bar', label:'Số đơn hàng (nghìn)', data:[28.1,67.4,70.8,72.5,72.4,66.9,61.0,36.4,30.6,29.7,30.8],
+        backgroundColor: years.map(y=>y>=2019?'rgba(226,75,74,0.7)':'rgba(55,138,221,0.5)'), yAxisID:'y', order:2 },
+      { type:'line', label:'Avg order value (nghìn VND)', data:[23.0,20.4,22.1,21.7,24.5,23.9,25.5,26.0,28.8,28.7,31.1],
+        borderColor:'#EF9F27', backgroundColor:'transparent', tension:0.3, yAxisID:'y2', order:1, pointRadius:3, borderWidth:2 }
+    ]
+  },
+  options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{labels:{font:{size:10},boxWidth:10}}},
+    scales:{
+      x:{ticks:{font:{size:10}}},
+      y:{ticks:{callback:v=>v+'K',font:{size:10}},title:{display:true,text:'Đơn hàng',font:{size:9}}},
+      y2:{position:'right',ticks:{callback:v=>v+'K VND',font:{size:10}},grid:{display:false},title:{display:true,text:'AOV',font:{size:9}}}
+    }}
+});
+
+// C2: Churn donut
+new Chart(document.getElementById('c2'), {
+  type:'doughnut',
+  data:{
+    labels:['Churned 2019 (59%): 20,758','Retained (41%): 14,423'],
+    datasets:[{ data:[20758,14423],
+      backgroundColor:['#E24B4A','#1D9E75'], borderWidth:0 }]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:12}},
+      tooltip:{callbacks:{label:ctx=>ctx.label}}}}
+});
+
+// C3: Sessions vs Conversion
+const wt_years = [2013,2014,2015,2016,2017,2018,2019,2020,2021,2022];
+const sessions = [6.80,7.34,7.86,8.40,8.99,9.42,9.99,10.59,10.99,11.06]; // millions
+const conv = [1.022,0.995,0.949,0.886,0.751,0.628,0.375,0.289,0.270,0.283]; // % *100 scale
+
+new Chart(document.getElementById('c3'), {
+  data:{
+    labels: wt_years,
+    datasets:[
+      { type:'bar', label:'Sessions (triệu)', data:sessions,
+        backgroundColor:'rgba(55,138,221,0.3)', yAxisID:'y', order:2 },
+      { type:'line', label:'Conversion rate (%×10)', data:conv,
+        borderColor:'#E24B4A', backgroundColor:'rgba(226,75,74,0.1)', fill:true,
+        tension:0.3, yAxisID:'y2', order:1, pointRadius:3, borderWidth:2 }
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{font:{size:10},boxWidth:10}}},
+    scales:{
+      x:{ticks:{font:{size:10}}},
+      y:{ticks:{callback:v=>v+'M',font:{size:10}}},
+      y2:{position:'right',ticks:{callback:v=>v.toFixed(2)+'%',font:{size:10}},grid:{display:false}}
+    }}
+});
+
+// C4: Signups vs First purchase
+new Chart(document.getElementById('c4'), {
+  data:{
+    labels: years,
+    datasets:[
+      { type:'bar', label:'Signups', data:[957,2989,5034,7133,9202,11078,13011,15058,17211,19154,21103],
+        backgroundColor:'rgba(55,138,221,0.35)', yAxisID:'y', order:2 },
+      { type:'line', label:'First purchase', data:[20061,24170,13193,8782,6413,4813,3745,1898,1539,1350,1316],
+        borderColor:'#1D9E75', backgroundColor:'rgba(29,158,117,0.1)', fill:true,
+        tension:0.3, yAxisID:'y', order:1, pointRadius:3, borderWidth:2 }
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{font:{size:10},boxWidth:10}},
+      annotation:{annotations:{}}},
+    scales:{
+      x:{ticks:{font:{size:10}}},
+      y:{ticks:{callback:v=>(v/1000).toFixed(0)+'K',font:{size:10}},title:{display:true,text:'Số khách',font:{size:9}}}
+    }}
+});
+
+// C5: Outdoor vs Streetwear
+new Chart(document.getElementById('c5'), {
+  type:'line',
+  data:{
+    labels: years,
+    datasets:[
+      { label:'Outdoor', data:[142,268,294,276,269,245,171,122,100,84,86],
+        borderColor:'#1D9E75', backgroundColor:'rgba(29,158,117,0.1)', fill:true, tension:0.3, pointRadius:3, borderWidth:2 },
+      { label:'Streetwear', data:[487,1063,1224,1232,1431,1276,1272,766,731,708,802],
+        borderColor:'#378ADD', backgroundColor:'rgba(55,138,221,0.08)', fill:true, tension:0.3, pointRadius:3, borderWidth:2 }
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{font:{size:10},boxWidth:10}}},
+    scales:{
+      x:{ticks:{font:{size:10}}},
+      y:{ticks:{callback:v=>v+'T',font:{size:10}},title:{display:true,text:'Revenue (tỷ VND)',font:{size:9}}}
+    }}
+});
+
+// C6: Repeat rate + sell-through
+new Chart(document.getElementById('c6'), {
+  data:{
+    labels: years,
+    datasets:[
+      { type:'bar', label:'Repeat rate (%)', data:[27.5,42.2,43.8,44.2,43.9,42.6,40.5,30.7,26.6,26.5,27.2],
+        backgroundColor: years.map(y=>y>=2019?'rgba(226,75,74,0.6)':'rgba(55,138,221,0.5)'), yAxisID:'y', order:2 },
+      { type:'line', label:'Streetwear sell-through (%)', data:[22.2,20.6,18.6,16.8,16.5,15.9,14.8,11.9,11.9,14.4,15.0],
+        borderColor:'#EF9F27', backgroundColor:'transparent', tension:0.3, yAxisID:'y2', order:1, pointRadius:3, borderWidth:2 }
+    ]
+  },
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{font:{size:10},boxWidth:10}}},
+    scales:{
+      x:{ticks:{font:{size:10}}},
+      y:{ticks:{callback:v=>v+'%',font:{size:10}},title:{display:true,text:'Repeat rate',font:{size:9}}},
+      y2:{position:'right',ticks:{callback:v=>v+'%',font:{size:10}},grid:{display:false},title:{display:true,text:'Sell-through',font:{size:9}}}
+    }}
+});
+</script>
+</body>
+</html>

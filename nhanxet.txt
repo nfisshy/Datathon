@@ -1,0 +1,36 @@
+Chẩn đoán: Tại sao doanh thu sụp 2019 và không phục hồi?
+Dữ liệu chỉ ra đây không phải 1 nguyên nhân mà là 3 vòng xoáy tiêu cực xảy ra đồng thời, cộng hưởng nhau.
+
+Vòng xoáy 1 — Churn hàng loạt, không có gì thay thế
+Năm 2019, 59% trong 35,181 khách hàng active của 2018 không quay lại — mất 20,758 khách chỉ trong 1 năm. Cùng lúc đó, số khách mới có giao dịch đầu tiên giảm từ 3,745 xuống 1,898. Repeat rate trong năm sụt từ 40.5% xuống 30.7%.
+Điểm đáng chú ý: delivery time (~4.5 ngày), review rating (~3.93/5) và cancellation rate (~9%) hoàn toàn ổn định suốt 10 năm — nghĩa là vấn đề không phải chất lượng dịch vụ. Khách không quay lại vì không tìm thấy lý do để mua thêm, không phải vì trải nghiệm tệ.
+
+Vòng xoáy 2 — Traffic tăng nhưng không ai mua
+Web sessions tăng đều từ 6.8 triệu (2013) lên 11 triệu (2022) — tăng 63%. Nhưng conversion rate giảm liên tục từ 1.02% (2013) xuống 0.28% (2022). Đây là xu hướng giảm 10 năm liên tục, không phải cú sốc đột ngột — nghĩa là dấu hiệu đã xuất hiện từ rất sớm nhưng không được xử lý.
+Mâu thuẫn lớn nhất: signups mới tăng 2,000 người/năm đều đặn, nhưng số người signup rồi thực sự mua hàng lần đầu giảm từ 24,170 (2013) xuống 1,316 (2022). Website thu hút được sự quan tâm nhưng không thuyết phục được người mua — vấn đề nằm ở funnel giữa browse và checkout.
+
+Vòng xoáy 3 — Mất một chân kiềng, không có chân thứ ba
+Năm 2012, Outdoor đóng góp 52% doanh thu, Streetwear 42%. Đến 2022, Outdoor chỉ còn 7%, Streetwear 80%+. Vấn đề không phải Streetwear tệ đi — mà là Outdoor sụp mà không có danh mục nào thay thế. Casual và GenZ tăng nhưng tổng cộng chỉ chiếm ~8%.
+Khi Streetwear cũng bắt đầu bão hòa từ 2019 (sell-through giảm từ 14.8% → 11.9%), doanh nghiệp không còn trụ cột nào. Days of supply Streetwear tăng từ 184 ngày (2012) lên 1,730 ngày (2022) — vốn bị chôn ngày càng nhiều trong hàng tồn không bán được, thay vì tái đầu tư vào sản phẩm mới.
+
+Tại sao không phục hồi? Vì cả ba vấn đề đều chưa được can thiệp. Doanh nghiệp đang sống nhờ tệp khách trung thành còn lại — khoảng 20,000–22,000 khách mua ổn định mỗi năm từ 2019–2022 với avg order value tăng dần (+27%). Đây là lý do revenue "đi ngang" thay vì tiếp tục giảm — nhưng đây là trạng thái mong manh, không phải phục hồi.
+Tổng kết nhanh từ dữ liệu cho 4 câu hỏi:
+
+Q1 — Khách đăng ký nhưng không mua: Thực ra 63.7% "signups" đã mua trước khi đăng ký (guest checkout). Vấn đề thực nằm ở 9,595 người đăng ký rồi chưa mua — 65% trong số họ không mua trong suốt 1 năm, median chờ 579 ngày. Không có kênh nào tệ hơn kênh khác (~71–72% đều như nhau) nên vấn đề không phải traffic quality mà là không có email nurturing hay retargeting nào kéo họ quay lại.
+Q2 — Streetwear giảm vì 2 lý do đồng thời: Giá tăng 25% từ 2018–2022 trong khi thị trường bão hòa khiến elasticity đạt −9.4 lần năm 2019 — tăng giá 1% mất 9.4% lượng bán. Đồng thời số SKU mới ra mắt giảm từ 281 (2012) xuống 40 (2022) — lineup không đổi mới đủ nhanh cho khách hàng trẻ vốn cần sự mới mẻ.
+Q3 — Outdoor không tăng vì đang chết trong tồn kho: Overstock rate của Outdoor đã lên 80%+ từ năm 2014 và không giảm được. Days of supply năm 2022 là 1,998 ngày — 5.5 năm tồn kho. Sell-through chỉ 9.6%. Doanh nghiệp không thể tăng Outdoor khi vốn đang bị chôn vào hàng không bán được, không có tiền nhập SKU mới hay marketing.
+Q4 — Revenue không phải chỉ số quan trọng nhất: GP thực tế năm 2021 chỉ còn 102 tỷ — thấp hơn cả 2013 (191 tỷ) dù revenue cao hơn. COGS chiếm 90.2% revenue năm 2021. Hai chỉ số quan trọng hơn cần theo dõi là Gross Profit (bao nhiêu tiền thực sự giữ lại) và Repeat Purchase Rate (dự báo revenue 6–12 tháng sau) — cả hai đều đang xấu hơn mức revenue cho thấy.
+
+Nguyên nhân mới (Descriptive)
+COGS tăng nhanh hơn giá: COGS tăng 70% trong 10 năm, giá bán chỉ tăng 54.5% → GP per unit giảm 39.3% dù giá cao hơn. Đây là structural margin squeeze, không phải do volume.
+Basket erosion: Số item/đơn giảm đều đặn từ 5.19 → 4.75 (-8.3%) trong 10 năm. Mỗi đơn 2022 thiếu 2,816 VND so với tiềm năng, tổng thiệt hại 87 tỷ/năm. Nguyên nhân: không có cross-sell strategy và mất Outdoor — danh mục thường được mua kèm Streetwear.
+West region mất share nhanh nhất (-56%): East giảm -45%, Central chỉ -38%. West (TP.HCM vùng phụ cận) là thị trường cạnh tranh nhất — dấu hiệu mất thị phần vào Shopee/Lazada/Tiki.
+Odd-even margin cycle: Năm lẻ luôn có margin thấp hơn năm chẵn ~4.5 điểm %, nhất quán suốt 10 năm. Nhưng floor của mỗi chu kỳ ngày càng thấp dần — 2021 phá đáy cũ với chỉ 9.7%.
+
+Predictive — 3 cảnh báo định lượng
+No-action scenario: Revenue tuyến tính về 0.597T vào 2025 (-49% vs 2022). Repeat rate về 18% (từ 27%), first-purchase về 0 vào 2024. Đây là điểm không thể quay đầu.
+Revenue at risk ngay lập tức: At-risk (17,310 khách) + Dormant (12,682 khách) đang trên đà churn = 774 tỷ VND tổng LTV có thể mất trong 2 năm tới.
+
+Prescriptive — 4 hành động có số liệu
+Hành độngImpactEffortTimelineAt-risk retention (trigger 150d)+242 tỷ/nămThấp30 ngàyWin-back dormant (email 12%)+158 tỷ/nămThấp60 ngàyXóa bad promos+101 tỷ/nămRất thấp7 ngàyBasket cross-sell+49 tỷ/nămTrung bình90 ngàySKU renewal~400 tỷ/nămCao12–18 tháng
+Tradeoff quan trọng nhất: 3 hành động đầu chỉ mua thời gian 2–3 năm. Nếu không đổi mới SKU và giải phóng tồn kho Outdoor song song, vòng xoáy portfolio sẽ tiếp tục kéo doanh nghiệp xuống bất kể retention tốt đến đâu.

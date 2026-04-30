@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>2019 Revenue & Profit Break Story</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --blue: #2563eb;
+      --green: #059669;
+      --amber: #d97706;
+      --red: #dc2626;
+      --purple: #7c3aed;
+      --border: #e5e7eb;
+      --shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 20px 48px; }
+    .hero {
+      background: linear-gradient(135deg, #111827 0%, #1d4ed8 55%, #7c3aed 100%);
+      color: #fff;
+      border-radius: 24px;
+      padding: 28px 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+    .hero h1 { margin: 0 0 8px; font-size: 34px; line-height: 1.15; }
+    .hero p { margin: 0; color: rgba(255,255,255,.9); max-width: 920px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 18px 0 24px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 18px 0 24px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .kpi { font-size: 30px; font-weight: 800; margin: 2px 0 4px; }
+    .label { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+    .small { color: var(--muted); font-size: 13px; }
+    h2 { margin: 26px 0 10px; font-size: 24px; }
+    h3 { margin: 0 0 10px; font-size: 18px; }
+    ul { margin: 10px 0 0 18px; }
+    li { margin: 8px 0; }
+    .pill {
+      display: inline-block; padding: 6px 10px; border-radius: 999px; font-size: 12px;
+      background: #e0e7ff; color: #3730a3; font-weight: 700; margin-right: 8px;
+    }
+    .pill.red { background: #fee2e2; color: #991b1b; }
+    .pill.green { background: #dcfce7; color: #166534; }
+    .pill.amber { background: #fef3c7; color: #92400e; }
+    .timeline {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+      margin-top: 10px;
+    }
+    .step {
+      background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 14px;
+      min-height: 118px; box-shadow: var(--shadow); position: relative;
+    }
+    .step::after {
+      content: "→"; position: absolute; right: -15px; top: 42%; color: #94a3b8; font-size: 28px;
+    }
+    .step:last-child::after { content: ""; }
+    .step .year { font-weight: 800; color: var(--blue); margin-bottom: 6px; }
+    .barlist { margin-top: 10px; display: grid; gap: 10px; }
+    .barrow { display: grid; grid-template-columns: 200px 1fr 64px; gap: 10px; align-items: center; }
+    .bartrack { height: 14px; background: #e5e7eb; border-radius: 999px; overflow: hidden; }
+    .barfill { height: 100%; border-radius: 999px; }
+    .barfill.blue { background: linear-gradient(90deg, #60a5fa, #2563eb); }
+    .barfill.green { background: linear-gradient(90deg, #34d399, #059669); }
+    .barfill.red { background: linear-gradient(90deg, #f87171, #dc2626); }
+    .barfill.purple { background: linear-gradient(90deg, #a78bfa, #7c3aed); }
+    table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    th, td { padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+    th { background: #f8fafc; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .note {
+      background: #eff6ff; border: 1px solid #bfdbfe; color: #1e3a8a; border-radius: 16px; padding: 14px 16px; margin-top: 12px;
+    }
+    .conclusion {
+      background: linear-gradient(135deg, #111827, #1f2937);
+      color: #fff; border-radius: 20px; padding: 22px 24px; margin-top: 22px;
+      box-shadow: var(--shadow);
+    }
+    .conclusion strong { color: #fef08a; }
+    .footer { color: var(--muted); font-size: 12px; margin-top: 18px; }
+    @media (max-width: 980px) {
+      .grid-4, .grid-2, .timeline { grid-template-columns: 1fr 1fr; }
+      .barrow { grid-template-columns: 140px 1fr 56px; }
+    }
+    @media (max-width: 680px) {
+      .grid-4, .grid-2, .timeline { grid-template-columns: 1fr; }
+      .barrow { grid-template-columns: 1fr; }
+      .step::after { display: none; }
+      .hero h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="pill red">Executive story</div>
+      <div class="pill amber">EDA → diagnosis → action</div>
+      <h1>Tại sao doanh thu và lợi nhuận đứt gãy tại 2019 và không phục hồi?</h1>
+      <p>
+        Báo cáo này nối các tín hiệu dữ liệu thành một câu chuyện duy nhất: doanh nghiệp mất đà thu hút khách mới,
+        mất đà giữ chân khách cũ, portfolio bị co lại, trong khi logistics, review xấu và margin cùng kéo lợi nhuận đi xuống.
+      </p>
+    </section>
+
+    <section class="grid-4">
+      <div class="card"><div class="label">Orders</div><div class="kpi">646,945</div><div class="small">Quy mô giao dịch tổng thể</div></div>
+      <div class="card"><div class="label">Customers</div><div class="kpi">121,930</div><div class="small">Tệp khách hàng quan sát được</div></div>
+      <div class="card"><div class="label">Revenue</div><div class="kpi">16.43B</div><div class="small">Tổng doanh thu trong dữ liệu</div></div>
+      <div class="card"><div class="label">Avg rating</div><div class="kpi">3.94</div><div class="small">Chất lượng trải nghiệm chưa ổn định</div></div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card">
+        <h3>1) Descriptive — Điều gì đã xảy ra?</h3>
+        <ul>
+          <li>Doanh thu và gross profit cùng gãy tại <strong>2019</strong>, nên đây không chỉ là chuyện top-line.</li>
+          <li>Traffic vẫn tăng nhưng conversion giảm, cho thấy vấn đề nằm ở chất lượng chuyển đổi và giữ chân.</li>
+          <li>Repeat order share tăng mạnh từ giai đoạn đầu, rồi chững lại ở vùng cao nhưng không tạo thêm động lực mới.</li>
+          <li>Portfolio doanh thu nghiêng mạnh về <strong>Streetwear</strong> và <strong>Outdoor</strong>, khiến hệ thống dễ tổn thương khi một nhóm hàng suy yếu.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Descriptive signal board</h3>
+        <div class="barlist">
+          <div class="barrow"><div>Revenue break</div><div class="bartrack"><div class="barfill blue" style="width: 78%"></div></div><div>2019</div></div>
+          <div class="barrow"><div>Traffic up / conv down</div><div class="bartrack"><div class="barfill red" style="width: 70%"></div></div><div>Mismatch</div></div>
+          <div class="barrow"><div>Repeat intensity</div><div class="bartrack"><div class="barfill green" style="width: 92%"></div></div><div>Stalled</div></div>
+          <div class="barrow"><div>Profit margin</div><div class="bartrack"><div class="barfill purple" style="width: 48%"></div></div><div>Compressed</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2) Diagnostic — Vì sao chuyện đó xảy ra?</h2>
+      <div class="timeline">
+        <div class="step">
+          <div class="year">Acquisition</div>
+          <div>Traffic tăng, nhưng không tạo ra conversion đủ mạnh để bù cho đà giảm phía sau.</div>
+        </div>
+        <div class="step">
+          <div class="year">Retention</div>
+          <div>Khách quay lại yếu dần; churn không phải sự kiện đơn lẻ mà là mất động lực mua tiếp.</div>
+        </div>
+        <div class="step">
+          <div class="year">Experience</div>
+          <div>Review xấu gắn với delivery latency và shipping friction, kéo trải nghiệm xuống.</div>
+        </div>
+        <div class="step">
+          <div class="year">Portfolio</div>
+          <div>Danh mục tập trung vào vài nhóm hàng chủ lực, nên không có lớp doanh thu thay thế đủ nhanh.</div>
+        </div>
+        <div class="step">
+          <div class="year">Margin</div>
+          <div>Promo và logistics chi phí cao làm lợi nhuận suy yếu, khiến hồi phục top-line không đủ.</div>
+        </div>
+      </div>
+      <div class="note">
+        <strong>Chẩn đoán then chốt:</strong> trong dữ liệu hiện tại, 1-star review không phải tín hiệu đơn lẻ đủ giải thích toàn bộ đứt gãy;
+        nó là triệu chứng của một hệ thống đang mất đà ở cả acquisition, retention và fulfillment.
+      </div>
+    </section>
+
+    <section class="grid-2">
+      <div class="card">
+        <h3>3) Predictive — Nếu không đổi gì thì sao?</h3>
+        <ul>
+          <li>Xu hướng tuyến tính cho thấy doanh thu tiếp tục chịu áp lực đến 2025.</li>
+          <li>Repeat intensity có nguy cơ tiếp tục giảm nếu trải nghiệm sản phẩm / giao hàng không được sửa.</li>
+          <li>65,493 khách đã nằm trong nhóm dormant; đây là nguồn win-back lớn nhất trong ngắn hạn.</li>
+        </ul>
+        <table>
+          <thead>
+            <tr><th>Bucket</th><th>Ý nghĩa</th><th>Hành động</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Active</td><td>Mua gần đây</td><td>Cross-sell và giữ nhịp</td></tr>
+            <tr><td>Warm</td><td>Đang trôi xa</td><td>Can thiệp trước khi rơi vào churn</td></tr>
+            <tr><td>Dormant</td><td>Đã rời xa lâu</td><td>Win-back có ưu tiên</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>4) Prescriptive — Nên làm gì?</h3>
+        <table>
+          <thead>
+            <tr><th>Action</th><th>Impact</th><th>Effort</th><th>Timeline</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>At-risk retention</td><td>+242B VND/year</td><td>Low</td><td>30 days</td></tr>
+            <tr><td>Win-back dormant</td><td>+158B VND/year</td><td>Low</td><td>60 days</td></tr>
+            <tr><td>Fix bad promos</td><td>+101B VND/year</td><td>Very low</td><td>7 days</td></tr>
+            <tr><td>Basket cross-sell</td><td>+49B VND/year</td><td>Medium</td><td>90 days</td></tr>
+            <tr><td>SKU renewal</td><td>~400B VND/year</td><td>High</td><td>12–18 months</td></tr>
+          </tbody>
+        </table>
+        <div class="note">
+          Ưu tiên theo impact × effort: chặn churn trước, rồi mới phục hồi mix hàng và margin.
+        </div>
+      </div>
+    </section>
+
+    <section class="conclusion">
+      <h2 style="margin-top:0;color:#fff;">Kết luận cuối</h2>
+      <p style="margin-bottom:0;">
+        <strong>2019 không phải một cú sốc đơn lẻ.</strong> Nó là điểm gãy nơi doanh nghiệp đồng thời mất acquisition momentum,
+        mất retention momentum, portfolio không còn đủ rộng để bù, và margin bị nén bởi logistics / promo friction.
+        Vì vậy, doanh thu có thể dao động theo năm, nhưng lợi nhuận không thể phục hồi nếu không sửa gốc hệ thống.
+      </p>
+    </section>
+
+    <div class="footer">
+      Generated as a companion narrative to <code>2019_revenue_profit_break_story.ipynb</code>. Data sources: orders, customers, sales, reviews, shipments, inventory, products, and web traffic.
+    </div>
+  </div>
+</body>
+</html>
